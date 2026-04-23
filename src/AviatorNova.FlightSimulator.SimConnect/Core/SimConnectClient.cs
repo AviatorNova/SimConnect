@@ -78,7 +78,14 @@ public sealed class SimConnectClient : IAsyncDisposable
         _cts?.Cancel();
         if (_receivePumpTask != null)
         {
-            await _receivePumpTask.ConfigureAwait(false);
+            try
+            {
+                await _receivePumpTask.ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
+                // Expected when disposal cancels the receive pump.
+            }
         }
         _cts?.Dispose();
     }
