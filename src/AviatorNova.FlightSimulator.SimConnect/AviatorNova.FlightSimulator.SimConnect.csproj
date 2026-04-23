@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <WindowsSdkPackageVersion>10.0.19041.38</WindowsSdkPackageVersion>
+    
+    <!-- NuGet Metadata -->
+    <PackageId>AviatorNova.FlightSimulator.SimConnect</PackageId>
+    <Version>0.1.0-alpha</Version>
+    <Authors>Erhan Atesoglu</Authors>
+    <Description>Modern fluent .NET SimConnect client for MSFS 2024</Description>
+    <PackageTags>msfs;simconnect;winui</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260416003" /> 
+  </ItemGroup>
+
+</Project>
