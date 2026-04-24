@@ -8,13 +8,23 @@ namespace AviatorNova.FlightSimulator.SimConnect;
 /// </summary>
 public sealed class SimConnectClient : IAsyncDisposable
 {
+    /// <summary>Gets the name of this client.</summary>
     public string Name { get; }
+
+    /// <summary>Gets the dispatch style used by this client.</summary>
     public DispatchStyle DispatchStyle { get; }
+
+    /// <summary>Gets the dispatcher used for marshaling events.</summary>
     public IDispatcher Dispatcher { get; }
+
+    /// <summary>Gets a value indicating whether the client should automatically reconnect.</summary>
     public bool AutoReconnect { get; }
 
     // Events (will be marshaled to UI thread automatically)
+    /// <summary>Occurs when the client connects to SimConnect.</summary>
     public event EventHandler? Connected;
+
+    /// <summary>Occurs when an exception is encountered during SimConnect operations.</summary>
     public event EventHandler<Exception>? ExceptionOccurred;
 
     private readonly Channel<object> _commandChannel = Channel.CreateUnbounded<object>();
@@ -73,6 +83,7 @@ public sealed class SimConnectClient : IAsyncDisposable
         }
     }
 
+    /// <summary>Disposes the client and stops the receive pump.</summary>
     public async ValueTask DisposeAsync()
     {
         _cts?.Cancel();

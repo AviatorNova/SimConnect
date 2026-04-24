@@ -20,4 +20,12 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260416003" /> 
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\git\AviatorNova\SimConnect\src\AviatorNova.FlightSimulator.SimConnect\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\git\AviatorNova\SimConnect\src\AviatorNova.FlightSimulator.SimConnect\.editorconfig" />
+  </ItemGroup>
+
 </Project>
