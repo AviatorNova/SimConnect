@@ -33,12 +33,15 @@ public sealed class SimConnectClient : IAsyncDisposable
     private Task? _receivePumpTask;
 
     internal SimConnectClient(string name, DispatchStyle dispatchStyle,
-                             IDispatcher dispatcher, bool autoReconnect)
+                         IDispatcher dispatcher, bool autoReconnect)
     {
         Name = name;
         DispatchStyle = dispatchStyle;
-        _dispatcher = dispatcher;
+        _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
         AutoReconnect = autoReconnect;
+
+        // Satisfy non-nullable public properties (fixes CS8618)
+        Dispatcher = dispatcher;
     }
 
     internal async Task InitializeAsync(CancellationToken cancellationToken = default)
@@ -70,7 +73,7 @@ public sealed class SimConnectClient : IAsyncDisposable
         }
     }
 
-    private async Task RunCallbackPumpAsync(CancellationToken ct)
+    private async Task RunCallbackPumpAsync(CancellationToken cancellationToken)
     {
         // Placeholder for CallDispatch style
         try
@@ -100,4 +103,6 @@ public sealed class SimConnectClient : IAsyncDisposable
         }
         _cts?.Dispose();
     }
+
+
 }
