@@ -1,61 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-    This file is used by the .NET resource system to generate a strongly-typed 
-    ExceptionMessages class that we can use throughout the codebase.
+	<!-- 
+    Microsoft ResX Schema 
+    Version 2.0
   -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
 
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
+	<!-- Required ResX Headers -->
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
 
-  <!-- Exception Messages -->
-
-  <data name="Dispatcher_Null" xml:space="preserve">
+	<!-- === Exception Messages === -->
+	<data name="Dispatcher_Null" xml:space="preserve">
     <value>The dispatcher must be provided and cannot be null.</value>
     <comment>Thrown when a required IDispatcher is missing during construction.</comment>
   </data>
 
-  <data name="SimConnect_ConnectionFailed" xml:space="preserve">
+	<data name="SimConnect_ConnectionFailed" xml:space="preserve">
     <value>Failed to connect to Microsoft Flight Simulator 2024.</value>
     <comment>General connection failure message.</comment>
   </data>
 
-  <data name="SimConnect_CameraAcquireFailed" xml:space="preserve">
+	<data name="SimConnect_CameraAcquireFailed" xml:space="preserve">
     <value>Could not acquire the add-on camera slot. Another tool may already own it.</value>
     <comment>Used when CameraAcquire() returns failure.</comment>
   </data>
 
-  <data name="SimConnect_CameraNotOwned" xml:space="preserve">
+	<data name="SimConnect_CameraNotOwned" xml:space="preserve">
     <value>This client does not currently own the add-on camera.</value>
     <comment>When trying to use camera functions without ownership.</comment>
   </data>
 
-  <data name="CameraMode_Unsupported" xml:space="preserve">
+	<data name="CameraMode_Unsupported" xml:space="preserve">
     <value>Unsupported camera mode: {0}</value>
     <comment>Format string for invalid CameraMode enum values.</comment>
   </data>
 
-  <data name="InvalidOperation_DuringShutdown" xml:space="preserve">
+	<data name="InvalidOperation_DuringShutdown" xml:space="preserve">
     <value>Operation is not valid during shutdown.</value>
     <comment>Graceful shutdown protection.</comment>
   </data>
