@@ -20,4 +20,27 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260416003" /> 
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\git\AviatorNova\SimConnect\src\AviatorNova.FlightSimulator.SimConnect\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\git\AviatorNova\SimConnect\src\AviatorNova.FlightSimulator.SimConnect\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\ExceptionMessages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExceptionMessages.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\ExceptionMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

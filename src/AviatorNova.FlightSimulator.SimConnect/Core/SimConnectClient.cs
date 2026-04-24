@@ -8,27 +8,48 @@ namespace AviatorNova.FlightSimulator.SimConnect;
 /// </summary>
 public sealed class SimConnectClient : IAsyncDisposable
 {
-    public string Name { get; }
+    /// <summary>Gets the name of this client.</summary>
+    public required string Name { get; init; }
+
+    /// <summary>Gets the dispatch style used by this client.</summary>
     public DispatchStyle DispatchStyle { get; }
-    public IDispatcher Dispatcher { get; }
+
+    /// <summary>
+    /// Gets the dispatcher used for marshaling events back to the UI thread.
+    /// This is guaranteed to be non-null after construction.
+    /// </summary>
+    public required IDispatcher Dispatcher { get; init; }
+
+    /// <summary>Gets a value indicating whether the client should automatically reconnect.</summary>
     public bool AutoReconnect { get; }
 
     // Events (will be marshaled to UI thread automatically)
+    /// <summary>Occurs when the client connects to SimConnect.</summary>
     public event EventHandler? Connected;
+
+    /// <summary>Occurs when an exception is encountered during SimConnect operations.</summary>
     public event EventHandler<Exception>? ExceptionOccurred;
 
+    private readonly IDispatcher _dispatcher;   // private backing field
     private readonly Channel<object> _commandChannel = Channel.CreateUnbounded<object>();
-    private readonly IDispatcher _dispatcher;
     private CancellationTokenSource? _cts;
     private Task? _receivePumpTask;
 
-    internal SimConnectClient(string name, DispatchStyle dispatchStyle,
-                             IDispatcher dispatcher, bool autoReconnect)
+    internal SimConnectClient(string name,
+                             DispatchStyle dispatchStyle,
+                             IDispatcher dispatcher,
+                             bool autoReconnect)
     {
         Name = name;
         DispatchStyle = dispatchStyle;
-        _dispatcher = dispatcher;
+        _dispatcher = dispatcher ?? throw new ArgumentNullException(
+            nameof(dispatcher),
+            ExceptionMessages.Dispatcher_Null);
+
         AutoReconnect = autoReconnect;
+
+        // Satisfy required properties
+        Dispatcher = dispatcher;
     }
 
     internal async Task InitializeAsync(CancellationToken cancellationToken = default)
@@ -56,11 +77,13 @@ public sealed class SimConnectClient : IAsyncDisposable
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            _dispatcher.Post(() => ExceptionOccurred?.Invoke(this, ex));
+            _dispatcher.Post(() => ExceptionOccurred?.Invoke(
+                this,
+                new InvalidOperationException(ExceptionMessages.InvalidOperation_DuringShutdown, ex)));
         }
     }
 
-    private async Task RunCallbackPumpAsync(CancellationToken ct)
+    private async Task RunCallbackPumpAsync(CancellationToken cancellationToken)
     {
         // Placeholder for CallDispatch style
         try
@@ -69,10 +92,12 @@ public sealed class SimConnectClient : IAsyncDisposable
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            _dispatcher.Post(() => ExceptionOccurred?.Invoke(this, ex));
+            _dispatcher.Post(() => ExceptionOccurred?.Invoke(
+                this,
+                new InvalidOperationException(ExceptionMessages.InvalidOperation_DuringShutdown, ex)));
         }
     }
-
+    /// <summary>Disposes the client and stops the receive pump.</summary>
     public async ValueTask DisposeAsync()
     {
         _cts?.Cancel();
